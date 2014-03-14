@@ -9,6 +9,6 @@ action :track do
 
   path = new_resource.path
   # converge_by("Track fingerprint of #{path}")
-  @checksum = Digest::MD5.hexdigest(IO.read(path))
+  new_resource.checksum = Digest::MD5.hexdigest(IO.read(path))
   puts "Computed checksum #@checksum"
 end

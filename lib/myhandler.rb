@@ -22,8 +22,7 @@ class MyHandler < Chef::Handler
         # TODO is this a good way to check the class name?
         puts "Tracked"
         puts "  path = #{res.path}"
-        # TODO: how do I expose this?
-        # puts "  md5 = #{res.checksum}"
+        puts "  md5 = #{res.checksum}"
       end
     end
   end
