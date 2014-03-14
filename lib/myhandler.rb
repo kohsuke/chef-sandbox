@@ -5,7 +5,7 @@ require 'digest/md5'
 class MyHandler < Chef::Handler
   def report
     # for interactive exploration
-    binding.pry
+    # binding.pry
 
     puts "Machine name: #{run_status.node.name}"
     run_status.updated_resources.each do |res|
