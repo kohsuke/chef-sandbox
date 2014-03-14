@@ -14,7 +14,7 @@ class MyHandler < Chef::Handler
         puts "Updated file"
         puts "  path = #{res.path}"
         puts "  action = #{res.action}"
-        puts "  md5 = #{Digest::MD5.hexdigest(File.read(res.path))}"
+        puts "  md5 = #{Digest::MD5.hexdigest(IO.read(res.path))}"
         # TODO: what is res.checksum?
       end
     end
