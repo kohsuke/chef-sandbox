@@ -1,3 +1,4 @@
 {
-    "run_list" : ["role[breakfast]"]
+    "run_list" : ["role[breakfast]"],
+    "chef_handler" : { "handler_path":"/tmp" }
 }
