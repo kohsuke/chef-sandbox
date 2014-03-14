@@ -14,7 +14,7 @@ action :track do
 end
 
 
-# this is not getting called early enough
+# TODO: this is not getting called early enough
 def load_current_resource
   @current_resource = Chef::Resource::SaladJenkinsTracking.new(@new_resource.name)
 
