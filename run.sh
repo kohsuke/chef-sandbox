@@ -1,2 +1,2 @@
 #!/bin/bash
-exec chef-solo -j node.json -c solo.rb
+exec sudo chef-solo -j node.json -c solo.rb
