@@ -1,12 +1,12 @@
 require "chef/log"
-# require 'pry'
 require 'digest/md5'
 
 module Jenkins
   class TrackingHandler < Chef::Handler
     def report
       # for interactive exploration
-      # binding.pry
+      #require 'pry'
+      #binding.pry
 
       report = []
 
@@ -34,6 +34,36 @@ module Jenkins
       end
 
       print report.inspect
+
+      if !Chef::Config[:solo]
+        # databag submission only works in chef-client
+        submit_databag run_status,report
+      end
+    end
+
+    # Submit the tracking report as a databag
+    #
+    # @param [Chef::RunStatus] run_status
+    # @param [Array<Hash>] report
+    def submit_databag(run_status, report)
+      # TODO: too expensive to load them. all we want to do is to check if databag exists
+      #begin
+      #  Chef::DataBag.load("jenkins")
+      #rescue Net::HTTPServerException => e
+      #  if e.response.code=="404"
+      #    bag = Chef::DataBag.new
+      #    bag.name "jenkins"
+      #    bag.save
+      #  end
+      #end
+
+      i = Chef::DataBagItem.new
+      i.data_bag("jenkins")  # set the name
+
+      id = run_status.node.name + '_' + run_status.end_time.strftime("%Y%m%d-%H%M%S")
+
+      i.raw_data = { "id" => id, "resources" => report }
+      i.save
     end
   end
 end
