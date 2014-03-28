@@ -1,0 +1,64 @@
+sanity check
+  - reporter + LWRP
+how to install handler?
+  chef_handler
+configuration of handler
+  Seth didn't think campfire one (https://github.com/ampledata/chef-handler-campfire)
+  works as documented.
+criteria for inclusion into the official jenkins cookbook
+  start with pull request
+
+any way to send information back to chef server?
+  one way: stash it in node bag?
+  there's analytic system that we might be able to hook into
+
+
+convert LWRP to HWRP
+  see https://github.com/opscode-cookbooks/jenkins/tree/master/libraries
+    Command, Credential in particular looks simple
+  see http://docs.opscode.com/chef/lwrps_custom.html#platform-vs-lightweight
+
+To look:
+  Chef::EventDispath::Base
+  also see Chef::ResourceReporter
+  compatibility layer to make this work with earlier version
+  of Chef: https://github.com/opscode-cookbooks/chef-reporting
+  the real meat is http://rubygems.org/gems/chef-reporting
+
+
+Chef Conf
+- maybe a hack day
+  http://chefconf2014.busyconf.com/schedule#day_52e66341bc9fb7741200000b
+
+- maybe community open spaces
+  http://chefconf2014.busyconf.com/schedule#day_52e6b1229339c202ec000002
+
+James Casey on analytics
+  store every resource that gets updated
+    (and attributes that have changed)
+  then they get published to RabbitMQ
+
+All the pointers:
+
+
+me	12:02 PM
+https://github.com/kohsuke/chef-sandbox
+
+Seth Chisamore	12:10 PM
+https://github.com/opscode/artifactory-client
+https://github.com/opscode-cookbooks/jenkins/tree/master/libraries
+https://github.com/opscode/chef/blob/master/lib/chef/event_dispatch/base.rb
+https://github.com/opscode/chef/blob/master/lib/chef/resource_reporter.rb
+https://github.com/opscode-cookbooks/chef-reporting
+https://github.com/opscode/chef-reporting
+https://github.com/opscode-cookbooks/jenkins/blob/master/metadata.rb
+http://docs.opscode.com/chef/lwrps_custom.html#platform-vs-lightweight
+http://docs.opscode.com/lwrp_chef_handler.html
+http://docs.opscode.com/community_plugin_report_handler.html
+
+me	12:32 PM
+https://github.com/ampledata/chef-handler-campfire/blob/master/lib/chef/handler/campfire.rb
+
+Seth Chisamore	12:45 PM
+https://github.com/opscode/chef/blob/master/lib/chef/data_bag_item.rb
+https://github.com/opscode/chef/blob/master/lib/chef/dsl/data_query.rb#L56-L64
