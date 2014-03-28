@@ -1,3 +1,9 @@
+PATH
+  remote: .
+  specs:
+    chef-handler-jenkins (0.1)
+      chef (>= 11.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -73,5 +79,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  chef (>= 11.6)
+  chef-handler-jenkins!
   pry
