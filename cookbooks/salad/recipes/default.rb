@@ -7,7 +7,7 @@ end
 
 # TODO: is this another way to install a handler?
 # chef_gem 'chef-handler-jenkins'  or something like that
-include_recipe 'chef_handler'
-chef_handler "MyHandler" do
-  # source ""
-end
+#include_recipe 'chef_handler'
+#chef_handler "Jenkins::TrackingHandler" do
+#  # source ""
+#end
