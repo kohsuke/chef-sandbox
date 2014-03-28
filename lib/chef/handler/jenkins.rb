@@ -2,6 +2,7 @@ require "chef/log"
 require 'digest/md5'
 
 module Jenkins
+  #noinspection RubyStringKeysInHashInspection
   class TrackingHandler < Chef::Handler
     def report
       # for interactive exploration
@@ -75,7 +76,7 @@ module Jenkins
       i.save id
     end
 
-    def submit_jenkins(run_status, report)
+    def submit_jenkins(run_status, env)
       r = Chef::REST.new('http://localhost:8080/')
       r.post("chef/report", env)
     end
