@@ -35,17 +35,26 @@ module Jenkins
 
       print report.inspect
 
+      # add envelop to the data
+      env = {
+        "node" => run_status.node.name,
+        "start_time" => run_status.start_time.rfc2822,
+        "end_time" => run_status.end_time.rfc2822,
+        "updates" => report
+      }
+
       if !Chef::Config[:solo]
         # databag submission only works in chef-client
-        submit_databag run_status,report
+        submit_databag run_status,env
       end
+      submit_jenkins run_status,env
     end
 
     # Submit the tracking report as a databag
     #
     # @param [Chef::RunStatus] run_status
-    # @param [Array<Hash>] report
-    def submit_databag(run_status, report)
+    # @param [Hash] report
+    def submit_databag(run_status, env)
       # TODO: too expensive to load them. all we want to do is to check if databag exists
       #begin
       #  Chef::DataBag.load("jenkins")
@@ -62,8 +71,13 @@ module Jenkins
 
       id = run_status.node.name + '_' + run_status.end_time.strftime("%Y%m%d-%H%M%S")
 
-      i.raw_data = { "id" => id, "resources" => report }
-      i.save
+      i.raw_data = env
+      i.save id
+    end
+
+    def submit_jenkins(run_status, report)
+      r = Chef::REST.new('http://localhost:8080/')
+      r.post("chef/report", env)
     end
   end
 end
