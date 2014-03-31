@@ -39,6 +39,7 @@ module Jenkins
       # add envelop to the data
       env = {
         "node" => run_status.node.name,
+        "environment" => run_status.node.environment,
         "start_time" => run_status.start_time.rfc2822,
         "end_time" => run_status.end_time.rfc2822,
         "updates" => updates
