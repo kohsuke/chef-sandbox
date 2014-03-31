@@ -9,13 +9,13 @@ module Jenkins
       #require 'pry'
       #binding.pry
 
-      report = []
+      updates = []
 
       puts "Machine name: #{run_status.node.name}"
       run_status.updated_resources.each do |res|
         # res is instance of CookbookFile
         if res.class <= Chef::Resource::File
-          report << {
+          updates << {
             "path" => res.path,
             "action" => res.action,
             "md5" => Digest::MD5.hexdigest(IO.read(res.path)),
@@ -26,7 +26,7 @@ module Jenkins
 
         if res.class == Chef::Resource::SaladJenkinsTracking
           # TODO is this a good way to check the class name?
-          report << {
+          updates << {
               "path" => res.path,
               "md5" => res.checksum,
               "type" => res.class.name
@@ -34,14 +34,14 @@ module Jenkins
         end
       end
 
-      print report.inspect
+      print updates.inspect
 
       # add envelop to the data
       env = {
         "node" => run_status.node.name,
         "start_time" => run_status.start_time.rfc2822,
         "end_time" => run_status.end_time.rfc2822,
-        "updates" => report
+        "updates" => updates
       }
 
       if !Chef::Config[:solo]
