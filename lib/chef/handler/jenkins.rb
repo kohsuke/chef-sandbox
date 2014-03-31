@@ -4,6 +4,11 @@ require 'digest/md5'
 module Jenkins
   #noinspection RubyStringKeysInHashInspection
   class TrackingHandler < Chef::Handler
+    def initialize(config)
+      @config = config
+      raise ArgumentError, 'Jenkins URL is not specified' unless @config[:url]
+    end
+
     def report
       # for interactive exploration
       #require 'pry'
@@ -34,8 +39,6 @@ module Jenkins
         end
       end
 
-      print updates.inspect
-
       # add envelop to the data
       env = {
         "node" => run_status.node.name,
@@ -45,7 +48,10 @@ module Jenkins
         "updates" => updates
       }
 
-      if !Chef::Config[:solo]
+      print env.inspect
+
+      if false  # TODO: work in progress
+      # if !Chef::Config[:solo]
         # databag submission only works in chef-client
         submit_databag run_status,env
       end
@@ -78,7 +84,7 @@ module Jenkins
     end
 
     def submit_jenkins(run_status, env)
-      r = Chef::REST.new('http://localhost:8080/')
+      r = Chef::REST.new(@config[:url])
       r.post("chef/report", env)
     end
   end
