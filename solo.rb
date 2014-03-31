@@ -5,8 +5,8 @@ data_bag_path Dir.pwd+"/databags"
 # install custom handler
 # this code can live in client.rb, too
 # TODO: if I need to configure which HTTP URL to send the report to, how should I do that?
-require 'lib/chef/handler/jenkins.rb'
-report_handlers << Jenkins::TrackingHandler.new # ( :abc => 1, :def => 2)
+# require 'lib/chef/handler/jenkins.rb'
+# report_handlers << Jenkins::TrackingHandler.new # ( :abc => 1, :def => 2)
 
 #require 'chef/handler/json_file.rb'
 #report_handlers << Chef::Handler::JsonFile.new

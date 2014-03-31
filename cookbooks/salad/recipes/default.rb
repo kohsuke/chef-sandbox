@@ -11,3 +11,11 @@ salad_jenkins_tracking "/tmp/bar.txt"
 #chef_handler "Jenkins::TrackingHandler" do
 #  # source ""
 #end
+
+chef_gem 'chef-handler-jenkins'
+
+chef_handler 'Chef::Handler::Jenkins' do
+  source 'chef/handler/jenkins'
+  arguments :url => 'http://localhost:8080/jenkins'
+  action :enable
+end
